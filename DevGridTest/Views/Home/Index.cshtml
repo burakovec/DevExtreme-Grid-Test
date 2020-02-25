@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<h2 class="content-block">Home</h2>
+
+@(Html.DevExtreme().DataGrid<Order>()
+    .ElementAttr(new { @class = "dx-card wide-card" })
+    .DataSource(d => d.Mvc().Controller("Home").LoadAction("Get").Key("OrderID"))
+    .ShowBorders(true)
+    .FilterRow(f => f.Visible(true))
+    .FocusedRowEnabled(true) 
+    .ColumnAutoWidth(true) 
+    .Selection(s => s.Mode(SelectionMode.Multiple))
+.Columns(columns =>
+{
+columns.AddFor(m => m.OrderID);
+columns.AddFor(m => m.OrderDate);
+columns.AddFor(m => m.CustomerName);
+columns.AddFor(m => m.ShipCountry);
+columns.AddFor(m => m.ShipCity);
+})
+.Paging(p => p.PageSize(10))
+.Pager(p => p
+.ShowPageSizeSelector(true)
+.AllowedPageSizes(new[] { 5, 10, 20, 100, 200 })
+.ShowInfo(true)
+)
+)
